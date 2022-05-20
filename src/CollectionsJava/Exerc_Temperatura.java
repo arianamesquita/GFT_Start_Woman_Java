@@ -1,7 +1,6 @@
 package CollectionsJava;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class Exerc_Temperatura {
     public static void main(String[] args) {
