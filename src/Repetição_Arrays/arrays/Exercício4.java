@@ -19,9 +19,10 @@ public class Exercício4 {
 
         System.out.println("Matriz: ");
         for (int[] linha : M ) {
-            for (int coluna : linha ) {
-                System.out.println(coluna);
+            for (int coluna : linha) {
+                System.out.print(coluna);
             }
+            System.out.println(" ");
         }
         System.out.println();
     }
