@@ -8,6 +8,7 @@ id = 3 - Contato = nome: Jon, numero: 1111;
 */
 
 import java.util.*;
+import java.util.function.Function;
 
 public class Exerc_Dicionario {
     public static void main(String[] args) {
@@ -38,18 +39,37 @@ public class Exerc_Dicionario {
         for (Map.Entry<Integer, Contato> agenda6 : agenda5.entrySet())
             System.out.println(agenda6.getKey() + " - " + agenda6.getValue().getNome());
 
+        // ordem telefone
         System.out.println("--\tOrdem número telefone\t--");
-        //precisamos organizar os valores. Logo:
-        Set<Map.Entry<Integer, Contato>> set = new TreeSet<>(new ComparatorOrdemNumerica());
+/*        Set<Map.Entry<Integer, Contato>> set = new TreeSet<>(new Comparator<Map.Entry<Integer, Contato>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Contato> cont1, Map.Entry<Integer, Contato> cont2) {
+                return Integer.compare(cont1.getValue().getNumero(), cont2.getValue().getNumero());
+            }
+        });*/
+
+/*        Set<Map.Entry<Integer, Contato>> set = new TreeSet<>(Comparator.comparing(
+                new Function<Map.Entry<Integer, Contato>, Integer>() {
+                    @Override
+                    public Integer apply(Map.Entry<Integer, Contato> cont) {
+                        return cont.getValue().getNumero();
+                    }
+                }));*/
+
+        Set<Map.Entry<Integer, Contato>> set = new TreeSet<>(Comparator.comparing(
+                cont -> cont.getValue().getNumero()));
+
         set.addAll(agenda.entrySet());
         for (Map.Entry<Integer, Contato> entry: set) {
             System.out.println(entry.getKey() + " - " + entry.getValue().getNumero() +
                     ": " +entry.getValue().getNome());
         }
 
+        // ordem contato
         System.out.println("--\tOrdem nome contato\t--");
-        //precisamos organizar os valores. Logo:
-        Set<Map.Entry<Integer, Contato>> set1 = new TreeSet<>(new ComparatorOrdemNomeContato());
+/*        Set<Map.Entry<Integer, Contato>> set1 = new TreeSet<>(new ComparatorOrdemNomeContato());*/
+        Set<Map.Entry<Integer, Contato>> set1 = new TreeSet<>(Comparator.comparing(
+                cont -> cont.getValue().getNome()));
         set1.addAll(agenda.entrySet());
         for (Map.Entry<Integer, Contato> entry: set1) {
             System.out.println(entry.getKey() + " - " + entry.getValue().getNome());
@@ -100,7 +120,7 @@ class Contato implements Comparable <Contato> {
     }
 
 }
-class ComparatorOrdemNumerica implements Comparator<Map.Entry<Integer, Contato>> {
+/*class ComparatorOrdemNumerica implements Comparator<Map.Entry<Integer, Contato>> {
     @Override
     public int compare(Map.Entry<Integer, Contato> cont1, Map.Entry<Integer, Contato> cont2) {
         return Integer.compare(cont1.getValue().getNumero(), cont2.getValue().getNumero());
@@ -112,4 +132,4 @@ class ComparatorOrdemNomeContato implements Comparator<Map.Entry<Integer, Contat
     public int compare(Map.Entry<Integer, Contato> cont1, Map.Entry<Integer, Contato> cont2) {
         return cont1.getValue().getNome().compareToIgnoreCase(cont2.getValue().getNome());
     }
-}
+}*/
